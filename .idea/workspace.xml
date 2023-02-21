@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9f2255d7-6684-4e97-9eab-cdb817fe4dc5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../chatting/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chatting/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/chatting.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/ChattingApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/chatt/WebSocketChatt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/controller/BroadSocket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/controller/ChattController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/controller/Websocket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/src/test/java/com/fulldive/chatting/ChattingApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/chatting-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/chatting-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/ChattingApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/chatt/WebSocketChatt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/config/WebSocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/controller/BroadSocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/controller/ChattController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/controller/Websocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/classes/com/fulldive/chatting/handler/WebSocketHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/surefire-reports/TEST-com.fulldive.chatting.ChattingApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/surefire-reports/com.fulldive.chatting.ChattingApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fulldive_socket/target/test-classes/com/fulldive/chatting/ChattingApplicationTests.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2L5SCji3vgLLM5AA0z7Q6nGctLf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ChattingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="fulldive_socket" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.fulldive.chatting.ChattingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9f2255d7-6684-4e97-9eab-cdb817fe4dc5" name="Changes" comment="" />
+      <created>1675159330750</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675159330750</updated>
+      <workItem from="1675159334432" duration="848000" />
+      <workItem from="1676983027544" duration="1340000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
