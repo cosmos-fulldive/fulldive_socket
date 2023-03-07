@@ -53,7 +53,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
         Map<String, Object> inputUserSession = new HashMap<>();
-        
+
         String urlQuery = session.getUri().getQuery();
         String[] urlQuerySplit = urlQuery.split(",");
 
@@ -61,10 +61,10 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println("urlQuerySplit: " + urlQuerySplit.length );
 
         for(String x : urlQuerySplit) {
-     	   String[] inputMap = x.split("=");
-     	   for(int i=0; i<x.length(); i++) {
-     		   inputUserSession.put(inputMap[0], inputMap[1]);
-     	   }
+            String[] inputMap = x.split("=");
+            for(int i=0; i<x.length(); i++) {
+                inputUserSession.put(inputMap[0], inputMap[1]);
+            }
         }
 
         String id = (String) inputUserSession.get("roomId");  //메시지를 보낸 아이디 -> stageId로 변경예정
@@ -120,19 +120,19 @@ public class WebSocketHandler extends TextWebSocketHandler{
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-    	System.out.println("afterConnectionClosed");
-    	Map<String, Object> inputUserSession = new HashMap<>(); 
-    	 
+        System.out.println("afterConnectionClosed");
+        Map<String, Object> inputUserSession = new HashMap<>();
+
         String urlQuery = session.getUri().getQuery();
         String[] urlQuerySplit = urlQuery.split(",");
-        
+
         for(String x : urlQuerySplit) {
-     	   String[] inputMap = x.split("=");
-     	   for(int i=0; i<x.length(); i++) {
-     		   inputUserSession.put(inputMap[0], inputMap[1]);
-     	   }
+            String[] inputMap = x.split("=");
+            for(int i=0; i<x.length(); i++) {
+                inputUserSession.put(inputMap[0], inputMap[1]);
+            }
         }
-        
+
         String id = (String) inputUserSession.get("roomId");  //메시지를 보낸 아이디 -> stageId로 변경예정
         String userId = (String) inputUserSession.get("userId");  //메시지를 보낸 아이디 -> stageId로 변경예정
 
@@ -148,17 +148,17 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println("ClientList: " + ClientList);
 
         System.out.println("roomId:" + id +"의 " + userId + "사용자가 종료하였습니다."   );
-    	CLIENTS.remove(id + "_" + userId);
+        CLIENTS.remove(id + "_" + userId);
     }
-    
-    
+
+
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-    	Map<String, Object> inputUserSession = new HashMap<>(); 
-    	String playLoad = message.getPayload();
+        Map<String, Object> inputUserSession = new HashMap<>();
+        String playLoad = message.getPayload();
 //    	playLoad.replaceAll("\"", "").replace("{", "").replace("}", "");
-    	Map<String, Object> messageMap = new HashMap<String, Object>(); 
+        Map<String, Object> messageMap = new HashMap<String, Object>();
 
 
 //        System.out.println("message: " + message);
@@ -167,15 +167,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
         String urlQuery = session.getUri().getQuery();
         String[] urlQuerySplit = urlQuery.split(",");
-        
+
         for(String x : urlQuerySplit) {
-     	   String[] inputMap = x.split("=");
-     	   for(int i=0; i<x.length(); i++) {
-     		   inputUserSession.put(inputMap[0], inputMap[1]);
-     	   }
+            String[] inputMap = x.split("=");
+            for(int i=0; i<x.length(); i++) {
+                inputUserSession.put(inputMap[0], inputMap[1]);
+            }
         }
         TextMessage objMessage = new TextMessage(objectMapper.writeValueAsString(inputUserSession));
-        
+
         String id = (String) inputUserSession.get("roomId");  //메시지를 보낸 아이디 -> stageId로 변경예정
         String userId = (String) inputUserSession.get("userId");
 
@@ -186,6 +186,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println("CLIENTS: " + CLIENTS);
         String userMessage = message.getPayload();
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println("userMessage:" + userMessage);
         try{
             Map<String, Object> map = mapper.readValue(userMessage, Map.class);
 
@@ -245,6 +246,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                     //일반메세지
                     try {
                         Map<String, Object> chkChattingBanUserResult = this.chkChattingBanUser(id,userId);
+                        System.out.println("chkChattingBanUserResult: " + chkChattingBanUserResult);
                         if((int) chkChattingBanUserResult.get("result") == 200) {
                             arg.getValue().sendMessage(message);
                         }else {
@@ -260,10 +262,10 @@ public class WebSocketHandler extends TextWebSocketHandler{
                                 mapAsString = new ObjectMapper().writeValueAsString(result);
                                 TextMessage textMessage = new TextMessage(mapAsString);
                                 this.sendMessageToUser(id, userId, textMessage);
-                                
+
                             }
                         }
-                        
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -444,10 +446,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> room = ClientList.get(roomId);
         List<Map<String, Object>> userList = (List<Map<String, Object>>) room.get("userList");
+        System.out.println("userList: "+ userList);
         String currentTime = this.currentTime();
         for (Map<String, Object> user : userList) {
             if (user.get("userId").equals(userId)) {
+                System.out.println("유저확인 시간 확인:" + userId );
                 if((boolean) user.get("userChattingBanState")) {
+
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
                     System.out.println("currentTime: " + currentTime);
                     System.out.println("String) user.get(userChattingLastBanTime): " + (String) user.get("userChattingLastBanTime"));
@@ -475,8 +480,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
                         }
                     }
                 }
-                break;
             }
+            System.out.println("result 반환:" + result);
             result.put("message", "success");
             result.put("result", 200);
         }

@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f2255d7-6684-4e97-9eab-cdb817fe4dc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/ChattingApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/ChattingApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/chatt/WebSocketChatt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/chatt/WebSocketChatt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/config/WebSocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/config/WebSocketConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/BroadSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/BroadSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/ChattController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/ChattController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/Websocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/Websocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/handler/WebSocketHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/handler/WebSocketHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/fulldive/chatting/ChattingApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/fulldive/chatting/ChattingApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +73,8 @@
       <workItem from="1675159334432" duration="848000" />
       <workItem from="1676983027544" duration="1340000" />
       <workItem from="1676986462268" duration="220000" />
-      <workItem from="1678168854525" duration="1873000" />
+      <workItem from="1678168854525" duration="3136000" />
+      <workItem from="1678175425321" duration="727000" />
     </task>
     <servers />
   </component>
