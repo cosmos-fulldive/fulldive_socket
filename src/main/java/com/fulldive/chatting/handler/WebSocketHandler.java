@@ -55,6 +55,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
         Map<String, Object> inputUserSession = new HashMap<>();
 
         String urlQuery = session.getUri().getQuery();
+        String uniqueId = session.getId();
+        System.out.println("uniqueId:" + uniqueId);
         String[] urlQuerySplit = urlQuery.split(",");
 
         System.out.println("urlQuery: " + urlQuery );
@@ -67,8 +69,17 @@ public class WebSocketHandler extends TextWebSocketHandler{
             }
         }
 
-        String id = (String) inputUserSession.get("roomId");  //메시지를 보낸 아이디 -> stageId로 변경예정
-        String userId = (String) inputUserSession.get("userId");  //메시지를 보낸 아이디 -> stageId로 변경예정
+        String id = (String) inputUserSession.get("roomId");
+        String userId = (String) inputUserSession.get("userId");
+
+        if(ClientList.get(id) != null) {
+            List<Map<String, Object>> userList = (List<Map<String, Object>>) ClientList.get(id).get("userList");
+            boolean hasUserId = hasUserId(userList, userId);
+            if (hasUserId) {
+                throw new Exception("중복 접속 발견 서버 차단");
+            }
+        }
+
         CLIENTS.put(id + "_" + userId, session);
         //user api post
 
@@ -96,6 +107,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
         currentUser.put("userId", userId);
         currentUser.put("userChattingBanState", false);
         currentUser.put("userChattingLastBanTime", "");
+        currentUser.put("uniqueId", uniqueId);
+
+
 
         if(ClientList.get(id) == null) {
             ClientList.put(id, clientInsertUserInfo);
@@ -109,11 +123,24 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
         }else {
             List<Map<String, Object>> userList = (List<Map<String, Object>>) ClientList.get(id).get("userList");
+
+            System.out.println("Add userList: " + userList);
             userList.add(currentUser);
             ClientList.get(id).put("userCount", userList.size());
         }
         System.out.println("ClientList: "+ ClientList);
     }
+
+    private boolean hasUserId(List<Map<String, Object>> userList, String userId) {
+        for(Map<String, Object> user : userList) {
+            String existUserId = (String) user.get("userId");
+            if (existUserId.equals(userId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * 연결 종 시
@@ -122,6 +149,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         System.out.println("afterConnectionClosed");
         Map<String, Object> inputUserSession = new HashMap<>();
+        String uniqueId = session.getId();
+        System.out.println("uniqueId:" + uniqueId);
 
         String urlQuery = session.getUri().getQuery();
         String[] urlQuerySplit = urlQuery.split(",");
@@ -139,7 +168,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         List<Map<String, Object>> userList = (List<Map<String, Object>>) ClientList.get(id).get("userList");
 
         for(int i=0; i<userList.size(); i++){
-            if(userList.get(i).get("userId").equals(userId)){
+            if(userList.get(i).get("uniqueId").equals(uniqueId)){
                 userList.remove(i);
                 ClientList.get(id).put("userCount", userList.size());
             }
@@ -488,6 +517,19 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
         return result;
     }
+
+    /**
+     * userId 중복 체크 함수
+     * */
+//    public static boolean hasUserId(List<Map<String, Object>> userList, String userId) {
+//        for (Map<String, Object> userMap : userList) {
+//            if (userMap.containsKey("userId") && userMap.get("userId").equals(userId)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
 
 
 }
