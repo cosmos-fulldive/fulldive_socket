@@ -77,10 +77,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
             boolean hasUserId = hasUserId(userList, userId);
             if (hasUserId) {
                 throw new Exception("중복 접속 발견 서버 차단");
+//                System.out.println("중복접속 발견 유저등록 중단");
             }
+//            else {
+//            }
         }
+        CLIENTS.put(id + "_" + userId + "_" + uniqueId, session);
 
-        CLIENTS.put(id + "_" + userId, session);
         //user api post
 
         //header setting
@@ -148,7 +151,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+
         System.out.println("afterConnectionClosed");
+
+        System.out.println("Client: " + CLIENTS);
+
         Map<String, Object> inputUserSession = new HashMap<>();
         String uniqueId = session.getId();
         System.out.println("uniqueId:" + uniqueId);
@@ -178,7 +185,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println("ClientList: " + ClientList);
 
         System.out.println("roomId:" + id +"의 " + userId + "사용자가 종료하였습니다."   );
-        CLIENTS.remove(id + "_" + userId);
+        CLIENTS.remove(id + "_" + userId + "_" + uniqueId);
         this.sendToBrodcastInformation(id);
     }
 
@@ -279,6 +286,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                         Map<String, Object> chkChattingBanUserResult = this.chkChattingBanUser(id,userId);
                         System.out.println("chkChattingBanUserResult: " + chkChattingBanUserResult);
                         if((int) chkChattingBanUserResult.get("result") == 200) {
+                            System.out.println("일반메세지 전송");
                             arg.getValue().sendMessage(message);
                         }else {
                             //채팅금지상태
