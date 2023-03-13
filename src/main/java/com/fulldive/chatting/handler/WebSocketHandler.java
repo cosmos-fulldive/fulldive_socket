@@ -129,6 +129,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
             ClientList.get(id).put("userCount", userList.size());
         }
         System.out.println("ClientList: "+ ClientList);
+        this.sendToBrodcastInformation(id);
     }
 
     private boolean hasUserId(List<Map<String, Object>> userList, String userId) {
@@ -178,6 +179,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
         System.out.println("roomId:" + id +"의 " + userId + "사용자가 종료하였습니다."   );
         CLIENTS.remove(id + "_" + userId);
+        this.sendToBrodcastInformation(id);
     }
 
 
@@ -221,7 +223,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
             int messageType = (int) map.get("type");
 
-            if(messageType > 0 && messageType < 6) {
+            if(messageType > 0 && messageType < 7) {
                 this.msgChk(message, map, id, userId, messageType);
             }else {
                 throw new Exception("허용되지 않은 타입");
@@ -283,6 +285,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                             Map<String, Object> result = new HashMap<>();
 
                             result.put("type", 0);
+
                             result.put("result", 200);
                             result.put("message", "현재 채팅금지상태입니다.");
 
@@ -311,6 +314,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                     returnMessage.put("type", 1);
                     returnMessage.put("message",(String) messageMap.get("message"));
                     returnMessage.put("donation", true);
+                    returnMessage.put("donationImage", messageMap.get("donationImage"));
 
                     String mapAsString = null;
                     String returnMapAsString = null;
@@ -387,6 +391,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
                 } else if( messageType == 5 ) {
                     //인터미션을 통한 url change
+                } else if( messageType == 6) {
+                    //방송관련정보
+
                 }
 
             }
@@ -519,17 +526,45 @@ public class WebSocketHandler extends TextWebSocketHandler{
     }
 
     /**
-     * userId 중복 체크 함수
+     * 방송정보 전달
      * */
-//    public static boolean hasUserId(List<Map<String, Object>> userList, String userId) {
-//        for (Map<String, Object> userMap : userList) {
-//            if (userMap.containsKey("userId") && userMap.get("userId").equals(userId)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public void sendToBrodcastInformation(String roomId) {
+        System.out.println("접속자 변동 정보 전달");
+        System.out.println("Client Information: " + ClientList);
+        Map<String, Object> result = new HashMap<>();
+        int userCount = (Integer) ClientList.get(roomId).get("userCount");
+        String stageUrl = (String) ClientList.get(roomId).get("stageUrl");
+        result.put("type", 6);
+        result.put("userCount", userCount);
+        result.put("stageUrl", stageUrl);
+        String mapAsString = null;
+        try {
+            mapAsString = new ObjectMapper().writeValueAsString(result);
+            TextMessage textMessage = new TextMessage(mapAsString);
+            CLIENTS.entrySet().forEach( arg->{
+                String[] argSplit = arg.getKey().split("_");
 
+                if(argSplit[0].equals(roomId)) {
+                    try {
+                        arg.getValue().sendMessage(textMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 인터미션
+     * */
+    public void sendToModifyBroadcastUrl() {
+
+    }
 
 
 }
