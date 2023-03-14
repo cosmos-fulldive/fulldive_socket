@@ -319,10 +319,12 @@ public class WebSocketHandler extends TextWebSocketHandler{
                     result.put("result", apiResult.get("result"));
                     result.put("message", apiResult.get("message"));
 
-                    returnMessage.put("type", 1);
+                    returnMessage.put("type", 2);
                     returnMessage.put("message",(String) messageMap.get("message"));
                     returnMessage.put("donation", true);
                     returnMessage.put("donationImage", messageMap.get("donationImage"));
+                    returnMessage.put("nickName", messageMap.get("nickName"));
+
 
                     String mapAsString = null;
                     String returnMapAsString = null;
