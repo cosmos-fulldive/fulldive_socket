@@ -7,6 +7,12 @@
     <list default="true" id="9f2255d7-6684-4e97-9eab-cdb817fe4dc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fulldive/chatting/handler/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/ChattingApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/chatt/WebSocketChatt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/BroadSocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/ChattController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/controller/Websocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fulldive/chatting/handler/WebSocketHandler.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +85,8 @@
       <workItem from="1678447955490" duration="6079000" />
       <workItem from="1678669969253" duration="10303000" />
       <workItem from="1678683470302" duration="5335000" />
-      <workItem from="1678774323893" duration="340000" />
+      <workItem from="1678774323893" duration="452000" />
+      <workItem from="1678775156471" duration="1331000" />
     </task>
     <servers />
   </component>

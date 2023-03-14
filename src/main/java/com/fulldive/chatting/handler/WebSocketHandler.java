@@ -18,6 +18,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class WebSocketHandler extends TextWebSocketHandler{
@@ -29,6 +31,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     private final Map<String, Map<String ,Object>> ClientList = new HashMap<>();
 
     private static int i;
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     /**
      * 현재시간 반환
@@ -42,7 +45,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         String formattedTime = currentTime.format(formatter);
 
         // 결과를 출력합니다.
-        System.out.println("현재 시간: " + formattedTime);
+        logger.info("현재 시간: " + formattedTime);
 
         return formattedTime;
     }
@@ -56,11 +59,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
         String urlQuery = session.getUri().getQuery();
         String uniqueId = session.getId();
-        System.out.println("uniqueId:" + uniqueId);
+        logger.info("uniqueId:" + uniqueId);
         String[] urlQuerySplit = urlQuery.split(",");
 
-        System.out.println("urlQuery: " + urlQuery );
-        System.out.println("urlQuerySplit: " + urlQuerySplit.length );
+        logger.info("urlQuery: " + urlQuery );
+        logger.info("urlQuerySplit: " + urlQuerySplit.length );
 
         for(String x : urlQuerySplit) {
             String[] inputMap = x.split("=");
@@ -77,7 +80,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
             boolean hasUserId = hasUserId(userList, userId);
             if (hasUserId) {
                 throw new Exception("중복 접속 발견 서버 차단");
-//                System.out.println("중복접속 발견 유저등록 중단");
+//                logger.info("중복접속 발견 유저등록 중단");
             }
 //            else {
 //            }
@@ -101,7 +104,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> userInfo = restTemplate.exchange(serverIp + "/api/user/userInfo", HttpMethod.POST, entity, Map.class);
 
-        System.out.println("userInfo :" + userInfo);
+        logger.info("userInfo :" + userInfo);
         Map<String, Object> clientInsertUserInfo = new HashMap<>();
         //api로 가져온 userinfo 삽입
         List<Map<String, Object>> clientUserList = new ArrayList<>();
@@ -127,11 +130,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
         }else {
             List<Map<String, Object>> userList = (List<Map<String, Object>>) ClientList.get(id).get("userList");
 
-            System.out.println("Add userList: " + userList);
+            logger.info("Add userList: " + userList);
             userList.add(currentUser);
             ClientList.get(id).put("userCount", userList.size());
         }
-        System.out.println("ClientList: "+ ClientList);
+        logger.info("ClientList: "+ ClientList);
         this.sendToBrodcastInformation(id);
     }
 
@@ -152,13 +155,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
-        System.out.println("afterConnectionClosed");
+        logger.info("afterConnectionClosed");
 
-        System.out.println("Client: " + CLIENTS);
+        logger.info("Client: " + CLIENTS);
 
         Map<String, Object> inputUserSession = new HashMap<>();
         String uniqueId = session.getId();
-        System.out.println("uniqueId:" + uniqueId);
+        logger.info("uniqueId:" + uniqueId);
 
         String urlQuery = session.getUri().getQuery();
         String[] urlQuerySplit = urlQuery.split(",");
@@ -182,9 +185,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
             }
         }
 
-        System.out.println("ClientList: " + ClientList);
+        logger.info("ClientList: " + ClientList);
 
-        System.out.println("roomId:" + id +"의 " + userId + "사용자가 종료하였습니다."   );
+        logger.info("roomId:" + id +"의 " + userId + "사용자가 종료하였습니다."   );
         CLIENTS.remove(id + "_" + userId + "_" + uniqueId);
         this.sendToBrodcastInformation(id);
     }
@@ -199,7 +202,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         Map<String, Object> messageMap = new HashMap<String, Object>();
 
 
-//        System.out.println("message: " + message);
+//        logger.info("message: " + message);
 
 //         sessions.parallelStream().forEach(session -> session.sendMessage(message));
 
@@ -217,14 +220,14 @@ public class WebSocketHandler extends TextWebSocketHandler{
         String id = (String) inputUserSession.get("roomId");  //메시지를 보낸 아이디 -> stageId로 변경예정
         String userId = (String) inputUserSession.get("userId");
 
-//        System.out.println("objMessage:" + objMessage);
-//        System.out.println("playLoad" + playLoad);
+//        logger.info("objMessage:" + objMessage);
+//        logger.info("playLoad" + playLoad);
 //   	룸아이디 비교하여 룸아이디가 같을 시 sendMessage(message);  
 
-        System.out.println("CLIENTS: " + CLIENTS);
+        logger.info("CLIENTS: " + CLIENTS);
         String userMessage = message.getPayload();
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println("userMessage:" + userMessage);
+        logger.info("userMessage:" + userMessage);
         try{
             Map<String, Object> map = mapper.readValue(userMessage, Map.class);
 
@@ -236,7 +239,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                 throw new Exception("허용되지 않은 타입");
             }
 
-            System.out.println("message :" + map.get("type"));
+            logger.info("message :" + map.get("type"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -263,11 +266,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
         String userMessage = message.getPayload();
         ObjectMapper mapper = new ObjectMapper();
 
-        System.out.println("message: " + message.getPayload());
-        System.out.println("id " + id);
+        logger.info("message: " + message.getPayload());
+        logger.info("id " + id);
 
-        System.out.println("message " + message);
-        System.out.println("message pay " + message.getPayload().getBytes(StandardCharsets.UTF_8));
+        logger.info("message " + message);
+        logger.info("message pay " + message.getPayload().getBytes(StandardCharsets.UTF_8));
 
         CLIENTS.entrySet().forEach( arg->{
             String[] argSplit = arg.getKey().split("_");
@@ -284,9 +287,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
                     //일반메세지
                     try {
                         Map<String, Object> chkChattingBanUserResult = this.chkChattingBanUser(id,userId);
-                        System.out.println("chkChattingBanUserResult: " + chkChattingBanUserResult);
+                        logger.info("chkChattingBanUserResult: " + chkChattingBanUserResult);
                         if((int) chkChattingBanUserResult.get("result") == 200) {
-                            System.out.println("일반메세지 전송");
+                            logger.info("일반메세지 전송");
                             arg.getValue().sendMessage(message);
                         }else {
                             //채팅금지상태
@@ -413,7 +416,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     /*도네이션*/
     public Map<String, Object> stageDonation(String roomId, String userId, Map<String, Object> map) {
 
-        System.out.println("Donation Start");
+        logger.info("Donation Start");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String, Object> paramsMap = new HashMap<>();
@@ -440,15 +443,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
         ResponseEntity<Map> donationInsert = restTemplate.exchange(serverIp + "/api/donation/donationInsert", HttpMethod.POST, entity, Map.class);
 
         Map<String, Object> result = donationInsert.getBody();
-        System.out.println("result:" + result);
+        logger.info("result:" + result);
         return result;
     }
 
     /*유저 추방*/
     public void userExile(String userId, String roomId) {
-        System.out.println("유저 추방: " + userId + " , " + roomId);
+        logger.info("유저 추방: " + userId + " , " + roomId);
         CLIENTS.remove(roomId + "_" + userId);
-        System.out.println(userId+": 유저추방완료");
+        logger.info(userId+": 유저추방완료");
     }
 
     /*유저 채팅금지*/
@@ -464,7 +467,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
                 break;
             }
         }
-        System.out.println("ClientList: " + ClientList);
+        logger.info("ClientList: " + ClientList);
     }
 
     public void banUser(String roomId, String userId, String banUser) throws IOException {
@@ -492,42 +495,42 @@ public class WebSocketHandler extends TextWebSocketHandler{
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> room = ClientList.get(roomId);
         List<Map<String, Object>> userList = (List<Map<String, Object>>) room.get("userList");
-        System.out.println("userList: "+ userList);
+        logger.info("userList: "+ userList);
         String currentTime = this.currentTime();
         for (Map<String, Object> user : userList) {
             if (user.get("userId").equals(userId)) {
-                System.out.println("유저확인 시간 확인:" + userId );
+                logger.info("유저확인 시간 확인:" + userId );
                 if((boolean) user.get("userChattingBanState")) {
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-                    System.out.println("currentTime: " + currentTime);
-                    System.out.println("String) user.get(userChattingLastBanTime): " + (String) user.get("userChattingLastBanTime"));
+                    logger.info("currentTime: " + currentTime);
+                    logger.info("String) user.get(userChattingLastBanTime): " + (String) user.get("userChattingLastBanTime"));
                     LocalDateTime localDateTime1 = LocalDateTime.parse(currentTime, formatter);
                     LocalDateTime localDateTime2 = LocalDateTime.parse((String) user.get("userChattingLastBanTime"), formatter);
 
                     // 두 시간을 비교합니다.
                     if (localDateTime2.isBefore(localDateTime1)) {
-                        System.out.println(localDateTime2 + " 이 " + localDateTime1 + " 보다 빠릅니다.");
+                        logger.info(localDateTime2 + " 이 " + localDateTime1 + " 보다 빠릅니다.");
                         Duration duration = Duration.between(localDateTime1, localDateTime2);
                         // 두 시간의 차이가 1분 이상인지 확인합니다.
                         long diffMinutes = duration.toMinutes();
 
                         if (Math.abs(diffMinutes) <= 1) {
-                            System.out.println("두 시간의 차이가 1분 이하입니다. 채팅금지상태의 유저이므로 채팅을 금지합니다.");
+                            logger.info("두 시간의 차이가 1분 이하입니다. 채팅금지상태의 유저이므로 채팅을 금지합니다.");
 
                             result.put("result", 400);
                             result.put("message", "채팅금지");
 
                             return result;
                         }else {
-                            System.out.println("두 시간의 차이가 1분 이상입니다. 채팅금지를 해제합니다");
+                            logger.info("두 시간의 차이가 1분 이상입니다. 채팅금지를 해제합니다");
                             user.put("userChattingBanState", false);
                             user.put("userChattingLastBanTime", "");
                         }
                     }
                 }
             }
-            System.out.println("result 반환:" + result);
+            logger.info("result 반환:" + result);
             result.put("message", "success");
             result.put("result", 200);
         }
@@ -539,8 +542,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * 방송정보 전달
      * */
     public void sendToBrodcastInformation(String roomId) {
-        System.out.println("접속자 변동 정보 전달");
-        System.out.println("Client Information: " + ClientList);
+        logger.info("접속자 변동 정보 전달");
+        logger.info("Client Information: " + ClientList);
         Map<String, Object> result = new HashMap<>();
         int userCount = (Integer) ClientList.get(roomId).get("userCount");
         String stageUrl = (String) ClientList.get(roomId).get("stageUrl");
