@@ -339,9 +339,12 @@ public class WebSocketHandler extends TextWebSocketHandler{
                                 TextMessage textMessage = new TextMessage(mapAsString);
                                 arg.getValue().sendMessage(textMessage);
                             }
-                            returnMapAsString = new ObjectMapper().writeValueAsString(returnMessage);
-                            TextMessage returnTextMessage = new TextMessage(returnMapAsString);
-                            arg.getValue().sendMessage(returnTextMessage);
+                            if((Integer) result.get("result") == 200) {
+                                returnMapAsString = new ObjectMapper().writeValueAsString(returnMessage);
+                                TextMessage returnTextMessage = new TextMessage(returnMapAsString);
+                                arg.getValue().sendMessage(returnTextMessage);
+                            }
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
